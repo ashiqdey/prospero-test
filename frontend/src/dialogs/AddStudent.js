@@ -74,7 +74,6 @@ const AddStudentDialog = ({ options, onClose }) => {
       console.error(error);
       if (error.message) {
         setToast(error.message);
-        setTimeout;
       }
 
       // reset();

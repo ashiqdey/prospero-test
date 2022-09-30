@@ -2,6 +2,6 @@
 
 
 export const urls = {
-  BASEURL: import.meta.env.VITE_BASEURL,
+  BASEURL: process.env.REACT_APP_BASEURL || '',
   students: '/students',
 };

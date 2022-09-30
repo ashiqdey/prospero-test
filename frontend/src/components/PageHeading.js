@@ -22,7 +22,7 @@ export default function PageHeading({
   children,
 }) {
   return (
-    <Box sx={{ mt: 2, mb: 4 }}>
+    <Box sx={{ mt: 3, mb: 5 }}>
       <Stack
         direction={direction}
         justifyContent="space-between"

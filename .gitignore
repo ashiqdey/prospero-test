@@ -4,17 +4,19 @@
 node_modules
 /.pnp
 .pnp.js
+*.zip
 
 # testing
 /coverage
 
 # production
 /dist
-/build
+build
+/backend/public
 
 # misc
 .env
-.env.local
+.env.development
 .env.development.local
 .env.test.local
 .env.production.local
