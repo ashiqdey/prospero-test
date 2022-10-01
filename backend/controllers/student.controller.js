@@ -80,7 +80,7 @@ exports.getStudents = async function (req, res) {
     // pagination
     const skip = (page - 1) * page_size;
 
-    console.log({ query: JSON.stringify(query), sort, page_size, skip });
+    // console.log({ query: JSON.stringify(query), sort, page_size, skip });
 
     // find 
     const data = await Students.find(query)
@@ -117,7 +117,7 @@ exports.addStudent = async function (req, res) {
       throw new Error('subjects should be an array');
     }
 
-    console.log({ l: 61, id, name, email, subjects });
+    // console.log({ l: 61, id, name, email, subjects });
 
 
 
