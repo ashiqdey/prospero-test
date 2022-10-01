@@ -1,116 +1,56 @@
 import { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
 // @mui
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 // components
 import PageHeading from '../../components/PageHeading';
 import Iconify from '../../components/Iconify';
 import AddStudent from '../../dialogs/AddStudent';
+import SearchBar from './components/SearchBar';
 import StudentTable from './components/StudentTable';
 import TablePagination from './components/TablePagination';
-
 //
-import { urls } from '../../config';
-import axios from '../../utils/axios';
-// import { useStudentContext } from '../../contexts/studentContext';
-import useIsMountedRef from '../../hooks/useIsMountedRef';
+import { useStudentContext } from '../../contexts/studentContext';
 
 // ---------------
 
 export default function Dashboard() {
-  // const {
-  //   // fetchStudent,
-  //   search,
-  //   sort,
-  //   setData,
-  //   // page,
-  //   // pageSize,
-  //   // setTotalPage,
-  //   // setPage,
-  //   // setPageSize,
-  // } = useStudentContext();
-  const isMountedRef = useIsMountedRef();
-
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  const [sort, setSort] = useState({
-    id: 2,
-    name: 2,
-  });
+  const {
+    fetchStudent,
+    sort,
+    page,
+    pageSize,
+  } = useStudentContext();
 
   // dialog
   const [addStudentDialog, setAddStudentDialog] = useState(false);
 
 
-  const fetchStudent = async () => {
-    // search, sort and pagination
-    const params = {
-      search,
-      page,
-      page_size: pageSize,
-    };
-
-
-    if (sort.id === 1 || sort.id === -1) {
-      params.sort_id = sort.id
-    }
-    if (sort.name === 1 || sort.name === -1) {
-      params.sort_name = sort.name
-    }
-
-
-    setLoading(true);
-    const response = await axios.get(urls.students, { params });
-
-    // handle api response
-    setData(response.data);
-    setTotalPage(response.total_page);
-    setPage(response.page);
-    setPageSize(response.page_size);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    if (isMountedRef.current) {
-      fetchStudent();
-    }
+    fetchStudent();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, sort, pageSize]);
 
   return (
     <Container maxWidth="xl">
-      <PageHeading title="Students" subtitle="Manage all students">
+      <PageHeading title="Students" subtitle="View and manage students">
         <Button
           onClick={() => setAddStudentDialog(true)}
           variant="outlined"
+          size='large'
           startIcon={<Iconify icon="mdi:account-plus" />}
         >
-          Add student
+          Add
+          <Box sx={{ display: { xs: 'none', sm: 'inline' } }}>student</Box>
         </Button>
       </PageHeading>
 
-      <StudentTable
-        search={search}
-        setSearch={setSearch}
-        onSearch={fetchStudent}
-        sort={sort}
-        setSort={setSort}
-        data={data}
-        loading={loading}
-      />
-      <TablePagination
-        totalPage={totalPage}
-        page={page}
-        setPage={setPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-      />
+      <SearchBar />
+      <StudentTable />
+      <TablePagination />
 
       {addStudentDialog && (
         <AddStudent

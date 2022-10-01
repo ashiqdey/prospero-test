@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 
 // -----------------------------------------------
 
@@ -22,7 +21,7 @@ export default function PageHeading({
   children,
 }) {
   return (
-    <Box sx={{ mt: 3, mb: 5 }}>
+    <Box sx={{ mt: 3, mb: 3 }}>
       <Stack
         direction={direction}
         justifyContent="space-between"

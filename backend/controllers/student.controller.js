@@ -91,15 +91,15 @@ exports.getStudents = async function (req, res) {
 
     // get total rows count
     const totalRows = await Students.find(query).count();
-
+    const totalPages = Math.ceil(totalRows / page_size);
 
     return res
       .status(200)
       .json({
         status: 200,
-        total_page: Math.ceil(totalRows / page_size),
+        total_page: totalPages,
         page_size,
-        page,
+        page : page > totalPages ? totalPages : page,
         data
       });
   } catch (e) {

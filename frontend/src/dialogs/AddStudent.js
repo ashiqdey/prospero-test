@@ -58,10 +58,8 @@ const AddStudentDialog = ({ options, onClose }) => {
   });
 
   const {
-    reset,
-    setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {
@@ -142,5 +140,4 @@ export default AddStudentDialog;
 AddStudentDialog.propTypes = {
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onClose: PropTypes.func,
-  onAdd: PropTypes.func,
 };

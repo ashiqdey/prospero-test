@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 // @mui
-import Stack from '@mui/material/Stack';
 import FormHelperText from '@mui/material/FormHelperText';
 
 import Box from '@mui/material/Box';
@@ -16,8 +15,8 @@ import Chip from '@mui/material/Chip';
 
 RHFTags.propTypes = {
   name: PropTypes.string,
-  values: PropTypes.array,
-  onChange: PropTypes.any,
+  label: PropTypes.string,
+  options: PropTypes.array,
 };
 
 const MenuProps = {
