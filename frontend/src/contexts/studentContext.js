@@ -161,37 +161,5 @@ StudentContextProvider.propTypes = {
 
 
 export function useStudentContext() {
-  const {
-    loading,
-    data,
-    setData,
-    sort,
-    setSort,
-    page,
-    setPage,
-    pageSize,
-    setPageSize,
-    totalPage,
-    setTotalPage,
-    search,
-    setSearch,
-    fetchStudent,
-  } = useContext(studentContext);
-
-  return {
-    loading,
-    data,
-    setData,
-    sort,
-    setSort,
-    page,
-    setPage,
-    pageSize,
-    setPageSize,
-    totalPage,
-    setTotalPage,
-    search,
-    setSearch,
-    fetchStudent,
-  };
+  return useContext(studentContext);
 }
