@@ -1,6 +1,6 @@
 const data = [
   {
-    field: 'id',
+    field: '_id',
     title: 'Student ID',
     sort: true,
     sx: {
@@ -10,6 +10,7 @@ const data = [
   {
     field: 'email',
     title: 'Email',
+    sort: true,
   },
   {
     field: 'name',

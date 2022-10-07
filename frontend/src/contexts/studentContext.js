@@ -44,26 +44,38 @@ export function StudentContextProvider({ children }) {
   const [sort, setSort] = useState({
     id: 2,
     name: 2,
+    email: 2,
   });
 
 
 
 
-  const fetchStudent = async () => {
+  const fetchStudent = async (args) => {
     // search, sort and pagination
     const params = {
       page,
       page_size: pageSize,
     };
 
-    if (search.length > 0) {
+    // when value is passed
+    if (args?.search?.length > 0) {
+      params.search = args.search
+    }
+    else if (search.length > 0) {
       params.search = search
     }
-    if (sort.id === 1 || sort.id === -1) {
-      params.sort_id = sort.id
+
+
+    const validSorts = [1, -1];
+
+    if (validSorts.includes(sort._id)) {
+      params.sort_id = sort._id
     }
-    if (sort.name === 1 || sort.name === -1) {
+    if (validSorts.includes(sort.name)) {
       params.sort_name = sort.name
+    }
+    if (validSorts.includes(sort.email)) {
+      params.sort_email = sort.email
     }
 
     // search in cache first
@@ -73,9 +85,9 @@ export function StudentContextProvider({ children }) {
       return;
     }
 
-
     setLoading(true);
     const response = await axios.get(urls.students, { params });
+
 
     handleCache(hash, response);
     handleResponse(response);
@@ -102,6 +114,7 @@ export function StudentContextProvider({ children }) {
         return [...tempHashes, hash]
       }
 
+
       return tempHashes;
     });
 
@@ -114,6 +127,7 @@ export function StudentContextProvider({ children }) {
       if (remove) {
         delete tempCache[remove];
       }
+
 
       return { ...tempCache, [hash]: response }
     });
