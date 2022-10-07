@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
-
+const autoIncrement = require("mongoose-auto-increment");
 
 const studentSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
   name: {
     type: String,
     required: true
@@ -23,6 +19,14 @@ const studentSchema = new mongoose.Schema({
 },
   { versionKey: false }
 )
+
+autoIncrement.initialize(mongoose.connection);
+studentSchema.plugin(autoIncrement.plugin, {
+  model: "Student",
+  field: "_id",
+  startAt: 1,
+  incrementBy: 1,
+});
 
 
 module.exports = mongoose.model("Student", studentSchema);

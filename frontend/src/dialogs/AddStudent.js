@@ -23,7 +23,7 @@ import axios from '../utils/axios';
 // -------------------------
 
 const FormSchema = Yup.object().shape({
-  id: Yup.string().required('ID is required'),
+  // id: Yup.string().required('ID is required'),
   name: Yup.string().required('Name is required'),
   email: Yup.string()
     .email('Email must be a valid email address')
@@ -35,7 +35,7 @@ const FormSchema = Yup.object().shape({
 });
 
 const DEFAULT_STUDENT = {
-  id: '',
+  // id: '',
   name: '',
   email: '',
   subjects: [],
@@ -96,7 +96,7 @@ const AddStudentDialog = ({ options, onClose }) => {
       <DialogContent>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3} sx={{ my: 2 }}>
-            <RHFTextField name="id" label="Student ID" type="number" />
+            {/* <RHFTextField name="id" label="Student ID" type="number" /> */}
             <RHFTextField name="name" label="Name" />
             <RHFTextField name="email" label="Email address" />
             <RHFTags name="subjects" label="Subjects" options={SUBJECTS} />

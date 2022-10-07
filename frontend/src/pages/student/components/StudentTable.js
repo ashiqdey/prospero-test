@@ -15,6 +15,7 @@ import Iconify from '../../../components/Iconify';
 import getSort from '../../../utils/sort';
 import { useStudentContext } from '../../../contexts/studentContext';
 import columns from '../../../data/student-column';
+import EmptyTable from "./EmptyTable";
 
 // -----------------------------------------------
 
@@ -65,14 +66,15 @@ const StudentTable = () => {
 
           <TableBody>
             <Loader loading={loading} />
+            <EmptyTable empty={data.length === 0} />
 
             {data.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row._id}>
                 {columns.map((column) => {
                   const value = row[column.field];
 
                   return (
-                    <TableCell key={`${row.id}${column.field}`}>
+                    <TableCell key={`${row._id}${column.field}`}>
                       {column.render ? column.render(value) : value}
                     </TableCell>
                   );
@@ -105,6 +107,8 @@ function Loader({ loading }) {
 Loader.propTypes = {
   loading: PropTypes.bool,
 };
+
+
 
 
 // render sort icon

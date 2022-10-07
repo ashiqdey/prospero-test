@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { debounce } from "lodash";
 // @mui
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
@@ -20,12 +22,39 @@ const SearchBar = () => {
   } = useStudentContext();
 
 
+
+  const debouncedSearch = useRef(
+    debounce(async (search) => {
+      if (search.length !== 0) {
+        // console.log('debounce', criteria);
+        await fetchStudent({ search });
+      }
+    }, 500)
+  ).current;
+
+
+
   const onKeyUp = (e) => {
     // for enter
-    if (e.charCode === 13) {
+    if (e.charCode === 13 && search.length !== 0) {
       fetchStudent();
     }
   };
+
+
+  const onChange = (e) => {
+    setSearch(e.target.value);
+    debouncedSearch(e.target.value);
+  };
+
+
+  useEffect(() => {
+    // clean when un mounted 
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
 
   return (
     <Stack direction="row" sx={{ width: '100%' }} justifyContent="flex-end">
@@ -39,12 +68,16 @@ const SearchBar = () => {
           placeholder="Search ID, name or email"
           label="Search student"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={onChange}
           onKeyPress={onKeyUp}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
-                onClick={fetchStudent}
+                onClick={() => {
+                  if (search.length !== 0) {
+                    fetchStudent()
+                  }
+                }}
                 // onMouseDown={handleMouseDownPassword}
                 edge="end"
               >
